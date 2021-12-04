@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:instagram_clone/home_page/controller/home_page_controller.dart';
 import 'package:instagram_clone/home_page/widgets/avatar.dart';
 import 'package:instagram_clone/home_page/widgets/post.dart';
-import 'package:instagram_clone/repositories/person_repository.dart';
 
 class HomePage extends GetView<HomePageController> {
   const HomePage({Key? key}) : super(key: key);
@@ -73,37 +72,39 @@ class HomePage extends GetView<HomePageController> {
                   child: Column(
                     children: [
                       Container(
-                        height: 120,
+                        height: MediaQuery.of(context).size.height * 0.16,
                         width: MediaQuery.of(context).size.width,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              Avatar(),
-                              Avatar(),
-                              Avatar(),
-                              Avatar(),
-                              Avatar(),
-                              Avatar(),
-                              Avatar(),
-                              Avatar(),
-                              Avatar(),
-                              Avatar(),
-                              Avatar(),
-                            ],
-                          ),
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Avatar(
+                                index: index,
+                              );
+                            },
+                            itemCount: controller.listPerson!.length),
+                      ),
+                      const Divider(
+                        color: Colors.black,
+                        height: 5,
+                      ),
+                      SingleChildScrollView(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: ListView.builder(
+                              itemBuilder: (context, index) {
+                                print(index);
+                                return Post(
+                                  index: index,
+                                );
+                              },
+                              itemCount: controller.listPerson!.length),
                         ),
                       ),
                       const Divider(
                         color: Colors.black,
                         height: 5,
                       ),
-                      const Post(),
-                      const Divider(
-                        color: Colors.black,
-                        height: 5,
-                      ),
-                      const Post(),
                     ],
                   ),
                 ),

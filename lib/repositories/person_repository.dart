@@ -14,7 +14,7 @@ class PersonRepository {
   }) : _restClient = restClient;
 
   Future<List<Person?>?> findPerson() async {
-    var url = 'https://randomuser.me/api/?results=5';
+    var url = 'https://randomuser.me/api/?results=10';
 
     final result = await _restClient.get<List<Person?>>(url, decoder: (data) {
       final resultData = data["results"];
